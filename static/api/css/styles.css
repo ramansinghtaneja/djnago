@@ -1,0 +1,752 @@
+/* Bootstrap CDN */
+/* @import url('https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css');
+@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css');
+@import url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css');
+
+:root {
+    --primary-color: rgb(239, 83, 80); 
+    --primary-hover: #EF9850;  
+    --text-color: #000000; 
+    --primary-dark: #e66400;
+    --primary-light: #ff9c3d;
+} */
+
+/* Global Styles */
+/* body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f8f9fa;
+    color: var(--text-color);
+}
+
+.container {
+    max-width: 1200px;
+} */
+
+/* Sticky Job Description Section */
+/* .job-description-container {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    padding: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+} */
+
+/* Scrollable Result Section */
+/* #result {
+    margin-top: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.candidate-card {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #ffffff;
+} */
+
+/* Button Styles */
+/* #shortlist-button, #hm-button {
+    color: #A3A3A8;
+}
+
+#shortlist-button i, #hm-button i {
+    color: black;
+}
+
+#shortlist-button:hover, #hm-button:hover {
+    color: #ff7500;
+    background-color: #f8f9fa;
+} */
+
+/* Candidate Card Heading */
+/* .candidate-card h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.candidate-card input {
+    margin-top: 10px;
+}
+
+.candidate-card p {
+    margin: 5px 0;
+} */
+
+/* Button Styles */
+/* button {
+    background-color: #ff7500 !important;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #EF9850;
+} */
+
+/* Form Styles */
+/* .form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    border-radius: 4px;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(255, 117, 0, 0.5);
+}
+
+label {
+    color: var(--text-color);
+} */
+
+/* Modal Styles */
+/* .modal.fade .modal-dialog {
+    transform: scale(0.8);
+    opacity: 0;
+    transition: all 0.3s ease-out;
+}
+
+.modal.show .modal-dialog {
+    transform: scale(1);
+    opacity: 1;
+}
+
+
+/* .modal-content {
+    background: linear-gradient(135deg, rgba(36, 36, 36, 0.85), rgba(0, 0, 0, 0.75));
+    border-radius: 12px;
+    border: none;
+    color: #fff;
+    padding: 30px;
+}
+
+.modal-header {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-footer {
+    padding: 10px 20px;
+    background-color: transparent;
+    justify-content: space-between;
+}
+
+.modal-header .close {
+    font-size: 1.5rem;
+    opacity: 0.7;
+}
+
+.modal-header .close:hover {
+    opacity: 1;
+} 
+
+.modal-body {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.7);
+} */
+
+/* Sidebar Styles */
+/* 
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 250px;
+    background: white;
+    color: black;
+    padding-top: 20px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+} */
+
+/* #shortlist-div {
+    margin-left: 270px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    overflow-x: hidden;
+    box-sizing: border-box;
+} */
+/* #shortlist-div {
+    margin-left: 250px; 
+    padding: 20px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.container {
+    margin-left: 270px;
+}
+
+.col-md-8 {
+    padding-right: 10px;
+}
+
+.col-md-4 {
+    padding-left: 10px;
+}
+
+/* Shortlist Section */
+/*
+#shortlist-div-hm {
+    padding: 20px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    flex: 1;
+}
+
+#shortlist-div-hm h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #343a40;
+} */
+
+/* .sidebar a {
+    padding: 10px;
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+} */
+/* .sidebar a {
+    padding: 15px;
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar a:hover {
+    background: #495057;
+}
+
+#copied-content {
+    padding: 10px;
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+
+.candidate-summary {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.candidate-summary h4 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.inline-form {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.inline-form textarea {
+    flex: 1;
+    height: 100px;
+    resize: vertical;
+    padding: 10px;
+    font-size: 16px;
+    width: 292%;
+    box-sizing: border-box;
+}
+
+.inline-form button {
+    height: 40px;
+    padding: 0 14px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-left: 360px;
+    white-space: nowrap;
+}
+
+.candidate-summary p {
+    font-size: 1rem;
+    color: #555;
+    margin: 5px 0;
+}
+
+.candidate-summary p:nth-child(4) {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.candidate-summary p:last-child {
+    margin-bottom: 0;
+}
+
+.candidate-summary:hover {
+    background-color: #e8f4ff;
+    border-color: #007bff;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+}
+
+
+#schedule-interview-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+}
+
+#schedule-interview-button:hover {
+    background-color: #0056b3;
+}
+
+
+.candidate-checkbox {
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+    border: 2px solid var(--border-color);
+    accent-color: #ff7500;
+    cursor: pointer;
+}
+@media (max-width: 767px) {
+    .sidebar {
+        width: 100%;
+        position: relative;
+    }
+
+    #shortlist-div {
+        margin-left: 0;
+    }
+
+    .container {
+        margin-left: 0;
+    }
+    .candidate-summary {
+        padding: 10px;
+    }
+
+    .inline-form {
+        flex-direction: column;
+    }
+
+    .candidate-summary p {
+        font-size: 14px;
+    }
+
+    .candidate-summary h4 {
+        font-size: 1rem;
+    }
+
+    #schedule-interview-button {
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .sidebar {
+        width: 220px;
+    }
+
+    .candidate-summary {
+        margin: 10px;
+    }
+
+    #schedule-interview-button {
+        width: auto;
+    }
+}
+
+@media (min-width: 1025px) {
+    .sidebar {
+        width: 250px;
+    }
+
+    #shortlist-div {
+        margin-left: 270px;
+    }
+} 
+
+ */
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 250px;
+    background: #343a40; /* Dark background */
+    color: white;
+    padding-top: 20px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+#shortlist-div {
+    margin-left: 250px; /* Adjust for the width of sidebar */
+    padding: 10px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+.col-md-8 {
+    padding-right: 10px;
+}
+
+.col-md-4 {
+    padding-left: 10px;
+}
+.sidebar a {
+    padding: 15px;
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar a:hover {
+    background-color: #495057;
+}
+
+#shortlist-button i, #hm-button i {
+    color: white;
+}
+
+#shortlist-button, #hm-button {
+    color: white;
+}
+
+#shortlist-button:hover, #hm-button:hover {
+    background-color: #ff7500;
+    color: white;
+}
+
+/* Sidebar Collapse for Mobile */
+@media (max-width: 767px) {
+    .sidebar {
+        width: 100%;
+        position: relative;
+    }
+
+    #shortlist-div {
+        margin-left: 0;
+    }
+
+    .container {
+        margin-left: 0;
+    }
+}
+
+.modal.fade .modal-dialog {
+    transform: scale(0.8);
+    opacity: 0;
+    transition: all 0.3s ease-out;
+}
+
+.modal.show .modal-dialog {
+    transform: scale(1);
+    opacity: 1;
+}
+
+
+ .modal-content {
+    background: linear-gradient(135deg, rgba(36, 36, 36, 0.85), rgba(0, 0, 0, 0.75));
+    border-radius: 12px;
+    border: none;
+    color: #fff;
+    padding: 30px;
+}
+
+.modal-header {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-footer {
+    padding: 10px 20px;
+    background-color: transparent;
+    justify-content: space-between;
+}
+
+.modal-header .close {
+    font-size: 1.5rem;
+    opacity: 0.7;
+}
+/* cd vite_project*/
+
+.modal-header .close:hover {
+    opacity: 1;
+} 
+
+.modal-body {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+button {
+    background-color: #ff7500 !important;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #EF9850;
+}
+
+/* Candidate Card */
+.candidate-card {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #ffffff;
+}
+
+/* Sticky Job Description */
+.job-description-container {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    padding: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+/* Filter Form Adjustments */
+#filterForm .form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    border-radius: 4px;
+}
+.form-group {
+    margin-bottom: 1.5rem; /* Increase gap between form elements */
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(255, 117, 0, 0.5);
+}
+
+/* Candidate Summary */
+.candidate-summary {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.candidate-summary h4 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+#result {
+    margin-top: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+}
+.inline-form {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+
+
+.inline-form textarea {
+    flex: 1;
+    height: 100px;
+    resize: vertical;
+    padding: 10px;
+    font-size: 16px;
+    width: 292%;
+    box-sizing: border-box;
+}
+
+.inline-form button {
+    height: 40px;
+    padding: 0 14px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-left: 360px;
+    white-space: nowrap;
+}
+#experience {
+    width: 150px; /* Yahan tum apni required width set kar sakte ho */
+}
+.candidate-summary p {
+    font-size: 1rem;
+    color: #555;
+    margin: 5px 0;
+}
+
+.candidate-summary p:nth-child(4) {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.candidate-summary p:last-child {
+    margin-bottom: 0;
+}
+
+.candidate-summary:hover {
+    background-color: #e8f4ff;
+    border-color: #007bff;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+}
+
+/* Schedule Interview Button */
+#schedule-interview-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+}
+
+#schedule-interview-button:hover {
+    background-color: #0056b3;
+}
+
+
+.candidate-checkbox {
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+    border: 2px solid var(--border-color);
+    accent-color: #ff7500;
+    cursor: pointer;
+}
+
+.container {
+    margin-top: 2rem;
+}
+
+.job-description-container, #filterForm {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.col-md-8 {
+    width: 60%; /* ya jitni tu chaahe */
+    flex: 0 0 auto;  /* ye bhi de dena to avoid flex shrinking */
+}
+
+.col-md-4 {
+    width: 30%; /* ya jitni tu chaahe */
+    flex: 0 0 auto;  /* ye bhi de dena to avoid flex shrinking */
+}
+/* Custom CSS to control gap between buttons */
+.custom-gap {
+    margin-right: 10px; /* Adjust this value to your preference */
+  }
+  
+  .custom-gap-last {
+    margin-left: 10px; /* Adjust this value to your preference */
+  }
+  
+.inline-form {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+#select-jd {
+    width: 200px; /* ya jitni chhoti width chahiye */
+  }
+
+#jobDescription {
+    flex: 1;
+}
+.row {
+    display: flex;
+    flex-wrap: nowrap; /* columns ko wrap hone mat do */
+}
+.btn-primary {
+    background-color: #ff7500;
+    border-color: #000000;
+}
+.inline-form-custom {
+    display: flex;
+    align-items: center;
+    gap: 2px; /* ya jitna chhota chahiye */
+}
+
+#result {
+    margin-top: 2rem;
+}
+
+/* Extra: Fix form and filter alignment inside the right column */
+#filterForm {
+    margin-top: 2rem;
+}
+
+#select-jd {
+    margin-top: 1rem;
+}
