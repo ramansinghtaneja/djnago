@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Interview Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lucide-icons/0.321.0/font/lucide.min.css" rel="stylesheet">
+</head>
+<body class="bg-white">
+
+    <div class="lg:hidden fixed inset-0 bg-white z-50 hidden" id="mobile-menu">
+        <div class="container mx-auto px-4 py-8">
+            <ul class="space-y-4">
+                <li><a href="/" class="block py-2 text-xl">Home</a></li>
+                <li><a href="/about" class="block py-2 text-xl">About</a></li>
+                <li><a href="http://127.0.0.1:8000/storepdf/test/" class="block py-2 text-xl">Take An Interview</a></li>
+            </ul>
+            <button id="close-mobile-menu" class="absolute top-4 right-4 text-2xl">×</button>
+        </div>
+    </div>
+
+    <div class="mt-5 flex-col w-full pb-24">
+        <div class="bg-orange-400 py-1 md:py-1">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="flex-1 text-center md:text-left">
+                        <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6">
+                            Resume  <span class="text-yellow-100">AI</span> 
+                        </h1>
+                        <p class="text-xl md:text-2xl text-white/90 mb-8">
+                            Revolutionize your hiring process with AI
+                        </p>
+               
+                    </div>
+                    <div class="flex-1 mt-8 md:mt-0">
+                        <div class="relative">
+                            <div class="absolute -top-4 -left-4 w-full h-full bg-white/20 rounded-2xl"></div>
+                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="bg-gray-50 py-4">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row items-center gap-8 mb-16">
+                    <div class="flex-1 order-2 md:order-1">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-4">
+                            Intelligent Resume Screening
+                        </h2>
+                        <p class="text-lg text-gray-600 mb-6">
+                            Our AI analyzes resumes to identify top candidates, saving you hours of manual screening and ensuring you never miss qualified talent.
+                        </p>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-center gap-2">
+                                <div class="w-6 h-6 rounded-full bg-yellow-300 flex items-center justify-center">
+                                    <i class="lucide lucide-check-circle text-white text-sm"></i>
+                                </div>
+                                <span class="text-gray-700">Semantic match with job descriptions</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <div class="w-6 h-6 rounded-full bg-yellow-300 flex items-center justify-center">
+                                    <i class="lucide lucide-check-circle text-white text-sm"></i>
+                                </div>
+                                <span class="text-gray-700">Skills and experience assessment</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <div class="w-6 h-6 rounded-full bg-yellow-300 flex items-center justify-center">
+                                    <i class="lucide lucide-check-circle text-white text-sm"></i>
+                                </div>
+                                <span class="text-gray-700">AI Insights </span>
+                            </li>
+                        </ul>
+                        <a href="http://127.0.0.1:8000/storepdf/test/">
+                            <button class="bg-white text-orange-600 hover:bg-yellow-100 hover:text-orange-700 text-lg px-8 py-6 rounded-full font-semibold flex items-center">
+                                Login as TA <i class="lucide lucide-sparkles ml-2"></i>
+                            </button>
+                        </a><br>
+                        <a href="http://127.0.0.1:8000/storepdf/assessments/">
+                            <button class="bg-white text-orange-600 hover:bg-yellow-100 hover:text-orange-700 text-lg px-8 py-6 rounded-full font-semibold flex items-center">
+                                Login as Hiring Manager <i class="lucide lucide-sparkles ml-2"></i>
+                            </button>
+                        </a>
+                    </div>
+                    <div class="flex-1 order-1 md:order-2">
+                        <div class="rounded-2xl overflow-hidden shadow-2xl">
+                            <img
+                                src="https://playhunt.io/uploads/redactor/63e5f8d8aff66.png"
+                                alt="Resume Screening"
+                                class="w-full sm:w-2/3 max-w-lg h-auto object-cover mx-auto"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+    
+            </div>
+        </div>
+
+       
+    </div>
+</body>
+</html>

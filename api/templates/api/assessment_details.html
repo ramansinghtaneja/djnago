@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+            width: 100%;
+        }
+
+        .left-panel {
+            width: 30%; /* Left panel takes 30% width */
+            padding-right: 20px;
+            border-right: 1px solid #ddd;
+        }
+
+        .right-panel {
+            width: 65%; /* Right panel takes 65% width */
+            padding-left: 20px;
+            max-height: 450px;
+            overflow-y: auto;
+        }
+
+        .candidate-item {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #f9f9f9;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .candidate-item:hover {
+            background-color: #e0f7fa;
+        }
+
+        .assessment-details {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            display: none; /* Initially hidden */
+            transition: all 0.3s ease-in-out;
+        }
+
+        .assessment-details.show {
+            display: block;
+        }
+
+        .assessment-item {
+            margin-bottom: 25px;
+        }
+
+        .left-panel h3 {
+            margin-top: 10px;
+            color: #333;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4); /* Black with transparency */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin-left: auto;
+            margin-right: auto;
+        
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 5px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .button {
+            background-color: #ff7500;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #FDAA48;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+
+        select, input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+
+        label {
+            font-weight: bold;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Black with transparency */
+        }
+    
+        {% comment %} .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            width: 60%;
+            border-radius: 10px;
+        } {% endcomment %}
+    
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+    
+        pre {
+            white-space: pre-wrap; 
+            word-wrap: break-word;
+        }
+        .flexstyle{
+            display:flex;
+
+        }
+    </style>
+</head>
+<body>
+  
+
+    <div class="left-panel">
+        <ul>
+        {% if assessments %}
+            {% for assessment in assessments %}
+                <li class="candidate-item" onclick="toggleDetails({{ forloop.counter }})">
+                    <strong>{{ assessment.candidate.full_name }} : </strong><em>{{ assessment.candidate.email }}</em><br>
+                    
+                    <!-- Feedback and AI buttons -->
+                     <div class="flexstyle">
+                    <button class="button" onclick="openFeedbackModal('{{ assessment.candidate.full_name }}', '{{ assessment.candidate.email }}')">Feedback</button>
+                    <button class="button" onclick="generateAIQuestions('{{ assessment.candidate.full_name }}')">AI Questions</button>
+                     </div>  
+                </li>
+            {% endfor %}
+        {% else %}
+            <p>No assessments found.</p>
+        {% endif %}
+        </ul>
+    </div>
+
+    <div class="right-panel">
+        {% if assessments %}
+            {% for assessment in assessments %}
+                <div id="details-{{ forloop.counter }}" class="assessment-details">
+                    <h3>{{ assessment.candidate.full_name }}</h3>
+                    <p><strong>Email:</strong> {{ assessment.candidate.email }}</p>
+                    {% comment %} <p><strong>Education:</strong> {{ assessment.candidate.education_details }}</p> {% endcomment %}
+                    {% comment %} <p><strong>Location:</strong> {{ assessment.candidate.location }}</p> {% endcomment %}
+                    <p><strong>Total Experience:</strong> {{ assessment.candidate.total_years_of_experience }}</p>
+                    <p><strong>Technical Skills:</strong> {{ assessment.candidate.technical_skills }}</p>
+                    <p><strong>Employment Details:</strong> {{ assessment.candidate.employment_details }}</p>
+                    <h4>Assessment Details:</h4>
+                    <p><strong>Score:</strong> {{ assessment.score }}</p>
+                    <p><strong>Remarks:</strong> {{ assessment.remarks }}</p>
+                    <p><strong>Job Description:</strong> {{ assessment.job_description }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No assessments found.</p>
+        {% endif %}
+    </div>
+
+    <!-- Modal for feedback -->
+    <div id="feedbackModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeFeedbackModal()">&times;</span>
+            <h2>Submit Feedback for <span id="candidate-name"></span></h2>
+            <form id="feedback-form">
+                <!-- Culture Fit -->
+                <div class="form-group">
+                    <label for="culture-fit">Culture Fit (1-5):</label>
+                    <input type="number" id="culture-fit" min="1" max="5" step="1">
+                </div>
+
+                <!-- Communication Skills -->
+                <div class="form-group">
+                    <label for="communication-skills">Communication Skills (1-5):</label>
+                    <input type="number" id="communication-skills" min="1" max="5" step="1">
+                </div>
+
+                <!-- Location -->
+                <div class="form-group">
+                    <label for="location">Location:</label>
+                    <input type="text" id="location">
+                </div>
+
+                <!-- Shift Constraints -->
+                <div class="form-group">
+                    <label for="shift-constraints">Shift Constraints:</label>
+                    <select id="shift-constraints">
+                        <option value="WFO">Work From Office (WFO)</option>
+                        <option value="Hybrid">Hybrid</option>
+                    </select>
+                </div>
+
+                <!-- Current Job and Reason for Leaving -->
+                <div class="form-group">
+                    <label for="current-job">Current Job and Reason for Leaving:</label>
+                    <textarea id="current-job" rows="3"></textarea>
+                </div>
+
+                <!-- Final Verdict -->
+                <div class="form-group">
+                    <label for="final-verdict">Final Verdict:</label>
+                    <select id="final-verdict">
+                        <option value="hire">Hire</option>
+                        <option value="strong-hire">Strong Hire</option>
+                        <option value="rejected">Rejected</option>
+                        <option value="waitlist">Waitlist</option>
+                    </select>
+                </div>
+
+                <button type="button" class="button" onclick="submitFeedback()">Submit Feedback</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="questionsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeQuestionsModal()">&times;</span>
+            <h2> Interview Questions for <span id="candidate-name_question"></span> </h2>
+            <pre id="questions-content"></pre> <!-- Display questions here -->
+        </div>
+    </div>
+
+    <script>
+        // Function to toggle details visibility
+        function toggleDetails(id) {
+            // First, hide all details
+            const allDetails = document.querySelectorAll('.assessment-details');
+            allDetails.forEach(function(detail) {
+                detail.classList.remove('show');
+            });
+
+            // Then, show the selected candidate's details
+            const details = document.getElementById('details-' + id);
+            details.classList.toggle('show'); // Toggle the 'show' class to show or hide the details
+        }
+
+        // Open the modal to submit feedback
+        function openFeedbackModal(name, email) {
+            // Set candidate's name in the modal title
+            document.getElementById('candidate-name').textContent = name;
+            // Open the modal
+            document.getElementById('feedbackModal').style.display = "block";
+        }
+
+        // Close the feedback modal
+        function closeFeedbackModal() {
+            document.getElementById('feedbackModal').style.display = "none";
+        }
+
+        // Submit the feedback
+        function submitFeedback() {
+            const feedbackData = {
+                cultureFit: document.getElementById('culture-fit').value,
+                communicationSkills: document.getElementById('communication-skills').value,
+                location: document.getElementById('location').value,
+                shiftConstraints: document.getElementById('shift-constraints').value,
+                currentJob: document.getElementById('current-job').value,
+                finalVerdict: document.getElementById('final-verdict').value
+            };
+
+            // Just to simulate the process
+            console.log('Feedback Submitted:', feedbackData);
+            alert('Feedback submitted for ' + document.getElementById('candidate-name').textContent);
+            closeFeedbackModal();
+        }
+
+        // Dummy function to simulate AI question generation
+        function generateAIQuestions(candidateName) {
+            alert('AI-generated questions for ' + candidateName);
+        }
+        function generateAIQuestions(candidateName) {
+            // Make an AJAX POST request to your API
+            fetch('http://127.0.0.1:8000/storepdf/questions/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    job_description: "Your job description here",
+                    skills: "Skills required for the role",
+                    employment_details: "Candidate's employment details",
+                    experience: "Years of experience"
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.questions) {
+                    openQuestionsModal(data.questions , candidateName);  // Call to open the modal with the questions
+                } else {
+                    alert("Error fetching questions");
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching AI-generated questions:", error);
+                alert("Error fetching questions");
+            });
+        }
+        
+        // Function to display questions in a modal
+        function openQuestionsModal(questions , candidateName) {
+            // Set the content of the modal with the AI-generated questions
+            document.getElementById('questions-content').innerText = questions;
+        
+            // Display the modal
+            document.getElementById('candidate-name_question').innerText = candidateName; 
+
+            document.getElementById('questionsModal').style.display = 'block';
+        }
+        
+        // Function to close the modal
+        function closeQuestionsModal() {
+            document.getElementById('questionsModal').style.display = 'none';
+        }
+        window.addEventListener('DOMContentLoaded', function () {
+            toggleDetails(1);  // Select the first item on page load
+        });
+    </script>
+</body>
+</html>

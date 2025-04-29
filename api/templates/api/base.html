@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Django Project with Vite</title>
+    {% load static %}
+    <!-- Link Vite's  static 'api/css/styles.css'  backend\static\api\frontend\index-DWjdvu4p.cssCSS backend\static\api\frontend\index-C6IslUZ6.jsfile if available backend\static\api\frontend\index-DWjdvu4p.cssbackend\static\api\frontend\index-DWjdvu4p.css -->
+    {% comment %} <link rel="stylesheet" href="{% static 'api/frontend/index-DWjdvu4p.css' %}"> {% endcomment %}
+
+</head>
+<body>
+
+    <div id="app"></div>
+
+    <!-- Link Vite's backend\static\api\frontend\index-C6IslUZ6.jsJavaScript -->
+    {% comment %} <script type="module" src="{% static 'api/frontend/index-C6IslUZ6.js' %}"></script>
+
+    <!-- If you have a .htm file that needs to be embedded (like a template or iframe), you can include it -->
+    <object type="text/html" data="{% static 'api/frontend/index.htm' %}" width="100%" height="500px"></object>
+
+    <!-- Include any images like SVG -->
+    <img src="{% static 'api/frontend/vite.svg' %}" alt="Vite logo"> {% endcomment %}
+
+</body>
+</html>

@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Profile Filter</title>
+
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* Custom Theme Colors based on #ff7500 */
+        :root {
+            --primary-color: rgb(239, 83, 80); 
+            --primary-hover: #EF9850;           /* Hover color */
+            --text-color: #000000; 
+            --primary-dark: #e66400;
+            --primary-light: #ff9c3d;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: var(--text-color);
+        }
+        .myinsights{
+
+            margin-left:465px !important;
+            
+            margin-top:-238px !important;
+        }
+
+        /* Section Containers */
+        .container {
+            max-width: 1200px;
+        }
+
+        /* Job Description Section (Fixed at top) */
+        .job-description-container {
+            position: sticky;
+            top: 0;
+            background-color: white;
+            padding: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        /* Result Section Scrollable */
+        #result {
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .candidate-card {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #ffffff;
+        }
+        
+        /* Style for the buttons */
+        #shortlist-button,
+        #hm-button {
+            color: #A3A3A8;  /* Set the text color to black */
+        }
+        
+        /* Optional: If you want to keep the icon color intact while changing the text */
+        #shortlist-button i,
+        #hm-button i {
+            color: black;  /* Make sure the icon color is also black */
+        }
+        
+        /* Optional: When hovering over the buttons, the text remains black */
+        #shortlist-button:hover,
+        #hm-button:hover {
+            color: #ff7500;
+            background-color: #f8f9fa;  /* You can change the background color on hover if desired */
+        }
+        
+        .candidate-card h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .candidate-card input {
+            margin-top: 10px;
+        }
+
+        .candidate-card p {
+            margin: 5px 0;
+        }
+
+        /* Button Styles */
+        button {
+            background-color: #ff7500 !important;  /* Orange color */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            color : #000000
+            background-color: #EF9850;  /* Light Orange on hover */
+        }
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            border-radius: 4px;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(255, 117, 0, 0.5);
+        }
+
+        label {
+            color:   var(--text-color);
+        }
+        .modal.fade .modal-dialog {
+            transform: scale(0.8);
+            opacity: 0;
+            transition: all 0.3s ease-out;
+          }
+          
+          .modal.show .modal-dialog {
+            transform: scale(1);
+            opacity: 1;
+          }
+          .show_details_cs{
+            margin-left:450px !important;
+          }
+          
+          /* Modal Content with sleek border radius and shadow */
+          .modal-content {
+            background: linear-gradient(135deg, rgba(36, 36, 36, 0.85), rgba(0, 0, 0, 0.75));
+            border-radius: 12px;
+            border: none;
+            color: #fff;
+            padding: 30px;
+          }
+        
+          /* Modal Header */
+          .modal-header {
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+          }
+        
+          /* Modal Footer */
+          .modal-footer {
+            padding: 10px 20px;
+            background-color: transparent;
+            justify-content: space-between;
+          }
+
+        
+          /* Close button */
+          .modal-header .close {
+            font-size: 1.5rem;
+            opacity: 0.7;
+          }
+          
+          .modal-header .close:hover {
+            opacity: 1;
+          }
+        
+          /* Futuristic Button Styles */
+          .btn-light {
+            background: linear-gradient(135deg, #6c5ce7, #00b894);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            transition: all 0.3s ease-in-out;
+          }
+          .btn-primary {
+            background-color : #ff7500;
+            border-color: #000000;
+          }
+          .btn-primary:hover {
+            background-color: #EF9850;  /* You can adjust the color here for the hover state */
+                /* Optional: If you want to change the border color as well */
+        }
+         
+        .btn-info {
+            color: #ffffff;
+            background-color: #ff7500;
+            border-color: #000000;
+        }
+          .btn-light:hover {
+            background: #EF9850;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+          }
+        
+          .btn-light:focus, .btn-light:active {
+            box-shadow: none;
+          }
+        
+          /* Modal Body */
+          .modal-body {
+            font-size: 1rem;
+            line-height: 1.6;
+          }
+        
+          /* Smooth Modal Transition */
+          .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.7);
+          }
+          /* Sidebar styling */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 250px;
+            background: white;
+            color: Black;
+            padding-top: 20px;
+            position: fixed;
+            z-index: 1000;
+        }
+        #shortlist-div {
+            margin-left: 270px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+        
+        #shortlist-div * {
+            {% comment %} max-width: 100%; {% endcomment %}
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .container {
+            margin-left: 270px; /* Adjust based on sidebar width */
+          }
+        .col-md-8 {
+            padding-right: 10px;
+          }
+          
+          .col-md-4 {
+            padding-left: 10px;
+          }
+          #scheduleInterviewButton {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+            width: 150px;  /* Adjust the width to your liking */
+        }
+        /* Shortlist div styling */
+        #shortlist-div-hm {
+            padding: 20px;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            flex: 1; /* Yeh important hai - bacha hua space yeh le lega */
+        }
+        
+
+/* Content within shortlist div */
+#shortlist-div-hm h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #343a40;
+}
+
+        .sidebar a {
+            padding: 10px;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background: #495057;
+        }
+        #copied-content {
+            padding: 10px;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        /* Styling for the candidate-summary container */
+.candidate-summary {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the candidate name */
+.candidate-summary h4 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+.inline-form {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%; /* full width of parent */
+    box-sizing: border-box;
+    padding: 10px;
+  }
+
+  .inline-form textarea {
+    flex: 1; /* take all available space */
+    height: 100px;
+    resize: vertical;
+    padding: 10px;
+    font-size: 16px;
+    width: 292%;
+    box-sizing: border-box;
+  }
+
+  .inline-form button {
+    height: 40px;
+    padding: 0 14px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-left: 360px;
+    white-space: nowrap;
+  }
+/* Styling for the candidate details (email, phone, etc.) */
+.candidate-summary p {
+    font-size: 1rem;
+    color: #555;
+    margin: 5px 0;
+}
+
+/* Highlighting Interview Status */
+.candidate-summary p:nth-child(4) {
+    font-weight: bold;
+    color: #007bff; /* Blue color for the status */
+}
+
+/* Additional spacing for better readability */
+.candidate-summary p:last-child {
+    margin-bottom: 0;
+}
+
+/* Add some hover effects to highlight the candidate block */
+.candidate-summary:hover {
+    background-color: #e8f4ff;
+    border-color: #007bff;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+}
+#schedule-interview-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+}
+
+#schedule-interview-button:hover {
+    background-color: #0056b3;
+}
+.candidate-checkbox {
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+    border: 2px solid var(--border-color);
+    accent-color: #ff7500;
+    cursor: pointer;
+}
+.container {
+    display: flex;
+  }
+  
+
+
+    </style>
+</head>
+<body>
+    {% comment %} modal {% endcomment %}
+    <!-- Modal Structure -->
+
+
+<div class="sidebar" id="sidebar">
+   
+    <div class="image-logo p-2 mb-3">
+       
+        <img decoding="async" width="200" height="60" src="https://zinnia.com/wp-content/uploads/2023/08/Zinnia®_Logo_HORIZONTAL_Full_Color_RGB-300x81.png" class="attachment-medium size-medium wp-image-4131" alt="Zinnia® Logo HORIZONTAL Full Color RGB" srcset="https://zinnia.com/wp-content/uploads/2023/08/Zinnia®_Logo_HORIZONTAL_Full_Color_RGB-300x81.png 300w, https://zinnia.com/wp-content/uploads/2023/08/Zinnia®_Logo_HORIZONTAL_Full_Color_RGB-1024x278.png 1024w, https://zinnia.com/wp-content/uploads/2023/08/Zinnia®_Logo_HORIZONTAL_Full_Color_RGB-768x209.png 768w, https://zinnia.com/wp-content/uploads/2023/08/Zinnia®_Logo_HORIZONTAL_Full_Color_RGB-1536x417.png 1536w, https://zinnia.com/wp-content/uploads/2023/08/Zinnia®_Logo_HORIZONTAL_Full_Color_RGB-2048x556.png 2048w" sizes="(max-width: 300px) 100vw, 300px">
+        
+    </div>
+    <a href="#" id="shortlist-button" class="active">
+        <i class="fas fa-chart-line"></i> Shortlist Resume
+    </a>
+    {% comment %} <a href="#" id="hm-button" class="active">
+        <i class="fas fa-chart-line"></i> Schedule hiring Manager Round 
+    </a> {% endcomment %}
+    
+
+</div>
+<div id="shortlist-div" style="display:none;"> 
+    <div class="modal fade" id="candidateSummaryModal" tabindex="-1" role="dialog" aria-labelledby="candidateSummaryModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+          <div class="modal-content rounded-0 shadow-lg border-0">
+            {% comment %} <div class="modal-header bg-dark text-white border-0"> {% endcomment %}
+              {% comment %} <h5 class="modal-title" id="candidateSummaryModalLabel"></h5> {% endcomment %}
+              {% comment %} <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" id="closeModalButton">
+                <span aria-hidden="true">&times;</span>
+              </button> {% endcomment %}
+            {% comment %} </div> {% endcomment %}
+            <div class="modal-body" id="candidateSummaryContent">
+              <!-- Dynamic content will be inserted here -->
+            </div>
+            {% comment %} <div class="modal-footer border-0 bg-transparent">
+              <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+            </div> {% endcomment %}
+          </div>
+        </div>
+      </div>
+  
+    <div >
+        <div class="row">
+            <!-- Left Column: Job Description and Results -->
+            <div class="col-md-8">
+                <div class="job-description-container">
+                    <h4>Job Description</h4>
+                    <div class="inline-form">
+                    <div class="form-group ">
+                        {% comment %} <label for="jobDescription">Enter Job Description</label> {% endcomment %}
+                        <textarea id="jobDescription" class="form-control" placeholder="Enter job description" rows="3"></textarea>
+                    </div>
+                    <button id="searchByJobDescButton" class="btn btn-primary "><i class="bi bi-search"></i></button>
+                </div>
+                </div>
+
+              
+
+                <!-- Results Section -->
+                {% comment %} <h2 class="mt-4">Results</h2> {% endcomment %}
+                <div id="result"></div>
+                <button id="generateExcelButton" class="btn btn-success" style="display:none;">Generate Excel</button>
+                <div id="resul"></div>
+                
+            </div>
+
+            <!-- Right Column: Filters -->
+            <div class="col-md-4">
+                <h2>Filter Job Profiles</h2>
+                <form id="filterForm">
+                    <div class="form-group">
+                        <label for="skills">Skills (comma separated)</label>
+                        <input type="text" class="form-control" id="skills" name="skills" placeholder="e.g. Java, Python, C++">
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" class="form-control" id="location" name="location" placeholder="e.g. Gurugram">
+                    </div>
+                    <div class="form-group">
+                        <label for="experience">Experience</label>
+                        <input type="text" class="form-control" id="experience" name="experience" placeholder="e.g. 5 years">
+                    </div>
+                    {% comment %} <button type="submit" class="btn btn-primary w-100">Filter Candidates</button>
+
+                    <button type="button" class="btn btn-secondary w-100 mt-2" id="clearFilterBtn">Clear Filter</button> {% endcomment %}
+
+                    <div class="row ">
+                        <div class="col-6 d-flex justify-content-start">
+                            <button type="submit" class="btn btn-primary w-100">Filter </button>
+                        </div>
+                        <div class="col-6 d-flex justify-content-end">
+                            <button type="button" class="btn btn-primary w-100 " id="clearFilterBtn">Clear Filter</button>
+                        </div>
+                    </div>
+                    
+                </form>
+                <div class="mt-3">
+                    <label for="select-jd" class="form-label mb-1">Select Job Description</label>
+                    <div class="input-group">
+                      <select class="form-select form-select-sm" id="select-jd">
+                        {% comment %} <option value="" data-title="Select Your JD">Select Your JD</option> {% endcomment %}
+                        <option value="" disabled selected hidden>Select Your JD</option>
+
+                        <option value=" We are looking for a passionate and skilled Software Engineer with 2–3 years of experience who has hands-on exposure to C#, Python, and Java, along with solid understanding of cloud-native technologies such as Azure, Service Fabric, and Kubernetes.
+As part of our Cloud and Platform team, you'll be involved in developing, deploying, and maintaining microservices using cutting-edge technologies, with a strong emphasis on scalability, performance, and reliability." data-title=".NET Developer">
+                          .NET Developer (2-3 years exp in Microsoft Web Technologies)
+                        </option>
+                        <option value="We are looking for a skilled Senior Full Stack Developer with experience in Java, Python, Microservices, and Cloud technologies (preferably AWS).
+The ideal candidate will have strong expertise in building REST APIs, deploying applications using Docker and 
+Kubernetes, and implementing CI/CD pipelines with tools like GitLab, Jenkins, and Maven. You should also 
+be comfortable working with NoSQL and SQL databases like Cassandra, MongoDB, and PostgreSQL, 
+and have experience with Kafka, Apache Spark, Flink, and Hive for big data processing. Familiarity with 
+monitoring tools like Prometheus, Grafana, and ELK 
+stack is also required" data-title="Senior Java Architect">
+                          Senior Java Developer (9+ years industry experience)
+                        </option>
+                      </select>
+                      <button class="btn btn-outline-secondary btn-sm" type="button" id="clear-jd">
+                        <i class="bi bi-x-lg"></i>
+                      </button>
+                    </div>
+
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- The div that holds the Hiring Manager Interview schedule content -->
+<div id="shortlist-div-hm" style="display:none;">
+    <h1>Schedule Hiring Manager Interview</h1>
+    <div id="copied-content">
+        <h1>yes</h1>
+    </div>
+    <button id="schedule-interview-button" class="btn btn-primary">
+        Schedule Interview
+    </button>
+
+</div>
+
+<!-- Your candidate cards with checkboxes -->
+
+<!-- The button that triggers the schedule interview process -->
+
+
+
+
+    <!-- Include Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Include SheetJS library for Excel export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+
+    <script>
+        // Filter candidates based on form input
+
+        document.getElementById('clearFilterBtn').addEventListener('click', function() {
+            // Reset the form fields
+            document.getElementById('filterForm').reset();
+        });
+        document.getElementById('filterForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const jobDescription = document.getElementById('jobDescription').value;
+            const skills = document.getElementById('skills').value;
+            const location = document.getElementById('location').value;
+            const experience = document.getElementById('experience').value;
+
+            const filterData = {
+                skills: skills,
+                location: location,
+                experience: experience
+            };
+
+            const requestData = {
+                job_description: jobDescription,
+                filter_data: filterData
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/storepdf/profiles/filters', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestData)
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.result) {
+                    displayCandidates(result.result);
+                    document.getElementById('generateExcelButton').style.display = 'block'; // Show the generate button
+                } else {
+                    alert('No results found or error occurred.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('No data found.');
+            }
+        });
+
+
+        const emailToPhoneNumber = {
+            'suhanisjain23@gmail.com'  : '9766543210',
+            'anandmanoj05@gmail.com'   : '9076543221',
+            'marripatimadhav@gmail.com': '9886543232',
+            'k.khare@outlook.com'      : '9870543232',
+            'kaavyaakakj@gmail.com': '9176543232',
+            'kanika.bansal.met20@itbhu.ac.in': '9976543232',
+            'abdulateek36@gmail.com': '9876543232',
+            'aayushsinghla@gmail.com': '9876543232',
+            'it.amitagarwal@gmail.com': '9876543232',
+            'viveksaha.arjun@gmail.com': '9876543232',
+            'vinayravikanth@gmail.com' : '8234532211',
+            'vaib_agarwal@yahoo.co.in' : '7634561111',
+            'arya.vivek@gmail.com'  : '7676732334',
+            'abhishek.ust@gmail.com' : '8432487874',
+            'shreehari3@yahoo.com'    : '767676345366'
+        };
+
+        // Function to display candidates
+        function displayCandidates(candidates) {
+            const resultContainer = document.getElementById('result');
+            resultContainer.innerHTML = ''; // Clear previous results
+
+            candidates.forEach(candidate => {
+                const phoneNumber = emailToPhoneNumber[candidate.email] || 'Phone number not available';
+
+                const candidateCard = document.createElement('div');
+                candidateCard.classList.add('candidate-card');
+
+                const mydiv=document.createElement('div');
+
+                const candidateName = document.createElement('h3');
+                candidateName.textContent = candidate.full_name;
+
+                const candidateEmail = document.createElement('p');
+                candidateEmail.textContent = `Email: ${candidate.email}`;
+
+                const candidatePhoneNumber = document.createElement('p');
+                candidatePhoneNumber.textContent = `Phone: ${phoneNumber}`;
+
+                const showDetailsButton = document.createElement('button');
+                showDetailsButton.textContent = "Show Details";
+                showDetailsButton.classList.add('btn', 'btn-sm', 'btn-primary','show_details_cs');
+                
+                // Create a div for holding the additional details
+                const additionalDetailsDiv = document.createElement('div');
+                additionalDetailsDiv.style.display = 'none';
+
+                const candidateLocation = document.createElement('p');
+                candidateLocation.textContent = `Location: ${candidate.location}`;
+
+                const candidateSkills = document.createElement('p');
+                candidateSkills.textContent = `Skills: ${candidate.technical_skills}`;
+
+                const candidateExperience = document.createElement('p');
+                candidateExperience.textContent = `Experience: ${candidate.experience}`;
+
+                
+                
+               
+                const candidateCheckbox = document.createElement('input');
+                candidateCheckbox.type = 'checkbox';
+                candidateCheckbox.value = candidate.email; // Use the candidate's email as a unique identifier
+                candidateCheckbox.classList.add('candidate-checkbox');
+
+                const screeningResultLabel = document.createElement('label');
+                screeningResultLabel.textContent = "Screening Result";
+                const screeningResultSelect = document.createElement('select');
+                screeningResultSelect.classList.add('form-control');
+                const resultOptions = ["Selected", "Rejected"];
+                resultOptions.forEach(result => {
+                    const option = document.createElement('option');
+                    option.value = result;
+                    option.textContent = result;
+                    screeningResultSelect.appendChild(option);
+                });
+        
+                // Score and Remarks fields (conditionally shown when 'Selected' is chosen)
+                const scoreLabel = document.createElement('label');
+                scoreLabel.textContent = "Score";
+                const scoreInput = document.createElement('input');
+                scoreInput.type = 'number';
+                scoreInput.classList.add('form-control');
+                scoreInput.style.display = 'none'; // Initially hide score input field
+        
+                const remarksLabel = document.createElement('label');
+                remarksLabel.textContent = "Remarks";
+                const remarksInput = document.createElement('textarea');
+                remarksInput.classList.add('form-control');
+                remarksInput.style.display = 'none'; // Initially hide remarks input field
+        
+                // Event listener to toggle score and remarks fields based on screening result
+                screeningResultSelect.addEventListener('change', function () {
+                    if (screeningResultSelect.value === 'Selected') {
+                        scoreInput.style.display = 'block'; // Show score field when selected
+                        remarksInput.style.display = 'block'; // Show remarks field when selected
+                    } else {
+                        scoreInput.style.display = 'none'; // Hide score field when rejected
+                        remarksInput.style.display = 'none'; // Hide remarks field when rejected
+                    }
+                }); 
+        
+                // Initially, default screening result is 'Rejected' and score/remarks are hidden
+                screeningResultSelect.value = 'Rejected';
+                scoreInput.style.display = 'none'; // Hide score initially
+                remarksInput.style.display = 'none'; // Hide remarks initially
+        
+
+              //  {% comment %} // Interview Status - Dropdown
+            ///    const interviewStatusLabel = document.createElement('label');
+            ///    interviewStatusLabel.textContent = "Interview Status";
+            //    const interviewStatusSelect = document.createElement('select');
+           //     interviewStatusSelect.classList.add('form-control');
+          //      const statusOptions = ["Scheduled", "Completed", "Pending"];
+        //        statusOptions.forEach(status => {
+        //            const option = document.createElement('option');
+                //    option.value = status;
+               //     option.textContent = status;
+              //      interviewStatusSelect.appendChild(option);
+              //  });
+
+                // Interview Date
+              //  const interviewDateLabel = document.createElement('label');
+              //  interviewDateLabel.textContent = "Interview Date";
+              //  const interviewDateInput = document.createElement('input');
+              //  interviewDateInput.type = 'date';
+              //  interviewDateInput.classList.add('form-control');
+
+                // Interview Time
+               // const interviewTimeLabel = document.createElement('label');
+              //  interviewTimeLabel.textContent = "Interview Time";
+               // const interviewTimeInput = document.createElement('input');
+               // interviewTimeInput.type = 'time';
+                //interviewTimeInput.classList.add('form-control'); {% endcomment %}
+
+                // Create the row container for the fields
+// Create the row container for the fields
+// Create the row container for the fields
+const rowContainer = document.createElement('div');
+rowContainer.classList.add('row', 'g-3', 'mt-2');
+
+// Interview Status - Dropdown
+const interviewStatusCol = document.createElement('div');
+interviewStatusCol.classList.add('col-md-3'); // Each column takes up 4 spaces (out of 12)
+const interviewStatusLabel = document.createElement('label');
+interviewStatusLabel.classList.add('form-label', 'mb-1');
+interviewStatusLabel.textContent = "Interview Status";
+const interviewStatusSelect = document.createElement('select');
+interviewStatusSelect.classList.add('form-select', 'form-select-sm');
+const statusOptions = ["Pending", "Scheduled", "Completed"];
+statusOptions.forEach(status => {
+    const option = document.createElement('option');
+    option.value = status;
+    option.textContent = status;
+    interviewStatusSelect.appendChild(option);
+});
+interviewStatusCol.appendChild(interviewStatusLabel);
+interviewStatusCol.appendChild(interviewStatusSelect);
+
+// Interview Date
+const interviewDateCol = document.createElement('div');
+interviewDateCol.classList.add('col-md-3'); // Column size 4 for the date field
+const interviewDateLabel = document.createElement('label');
+interviewDateLabel.classList.add('form-label', 'mb-1');
+interviewDateLabel.textContent = "Interview Date";
+const interviewDateInput = document.createElement('input');
+interviewDateInput.type = 'date';
+interviewDateInput.classList.add('form-control', 'form-control-sm');
+interviewDateCol.appendChild(interviewDateLabel);
+interviewDateCol.appendChild(interviewDateInput);
+
+// Interview Time
+const interviewTimeCol = document.createElement('div');
+interviewTimeCol.classList.add('col-md-3'); // Column size 4 for the time field
+const interviewTimeLabel = document.createElement('label');
+interviewTimeLabel.classList.add('form-label', 'mb-1');
+interviewTimeLabel.textContent = "Interview Time";
+const interviewTimeInput = document.createElement('input');
+interviewTimeInput.type = 'time';
+interviewTimeInput.classList.add('form-control', 'form-control-sm');
+interviewTimeCol.appendChild(interviewTimeLabel);
+interviewTimeCol.appendChild(interviewTimeInput);
+
+// Append all columns to the row container
+rowContainer.appendChild(interviewStatusCol);
+rowContainer.appendChild(interviewDateCol);
+rowContainer.appendChild(interviewTimeCol);
+
+// Append this row container to the candidate card
+
+
+
+
+
+
+                const getSummaryButton = document.createElement('button');
+                //getSummaryButton.textContent = "AI Insights";
+                getSummaryButton.classList.add('btn', 'btn-sm', 'btn-primary', 'ms-auto','myinsights');
+                const icon = document.createElement('i');
+                icon.classList.add('bi', 'bi-lightbulb', 'me-1');
+
+                // Append the icon and the text "AI Insights" to the button
+                getSummaryButton.appendChild(icon);
+                getSummaryButton.appendChild(document.createTextNode('AI Insights'));
+                getSummaryButton.addEventListener('click', function() {
+                    // Collecting candidate's details
+                    const candidateData = {
+                        full_name: candidate.full_name,
+                        email: candidate.email,
+                        technical_skills: candidate.technical_skills,
+                        experience: candidate.experience,
+                       
+                    };
+
+                    // Get the job description
+                    const jobDescription = document.getElementById('jobDescription').value;
+
+                    const requestData = {
+                        job_description: jobDescription,
+                        candidate_data: candidateData
+                    };
+
+                    fetch('http://127.0.0.1:8000/storepdf/profiles/summary', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(requestData)
+                    })
+                    .then(response => {
+                        // Log the response to inspect it
+                        console.log('Response:', response);
+                    
+                        // Check if the response is OK before parsing
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok ' + response.statusText);
+                        }
+                    
+                        // Parse the response as JSON and return it
+                        return response.json(); 
+                    })
+                    .then(data => {
+                        // Log the data to inspect the parsed result
+                        console.log('Data:', data);
+                    
+                        if (data && data.result) {
+                           
+
+                            // Check if positive_points and lacking_points exist in the data
+                            const positivePoints = data.result.positive_points || 'No positive points available.';
+                            const lackingPoints = data.result.lacking_points || 'No lacking points available.';
+                            
+                          
+                            // Create HTML structure
+                            let positivePointsHtml = '';
+                            if (positivePoints) {
+                                const positivePointsArray = positivePoints.split(' - ');
+                                positivePointsHtml = '<div style="max-height: 200px; overflow-y: auto;">'; // Scrollable area for positive points
+                                positivePointsHtml += '<ul>';
+                                positivePointsArray.forEach(point => {
+                                    positivePointsHtml += `<li>${point.trim()}</li>`;
+                                });
+                                positivePointsHtml += '</ul></div>';
+                            }
+                        
+                            // Create scrollable container for lacking points
+                            let lackingPointsHtml = '';
+                            if (lackingPoints) {
+                                const lackingPointsArray = lackingPoints.split(' - ');
+                                lackingPointsHtml = '<div style="max-height: 200px; overflow-y: auto;">'; // Scrollable area for lacking points
+                                lackingPointsHtml += '<ul>';
+                                lackingPointsArray.forEach(point => {
+                                    lackingPointsHtml += `<li>${point.trim()}</li>`;
+                                });
+                                lackingPointsHtml += '</ul></div>';
+                            }
+                        
+                            // Combine both sections into the summary content
+                            const summaryContent = `
+                                <h2>${candidate.full_name}</h2>
+                                <h4>Positive Points:</h4>
+                                ${positivePointsHtml}
+                                <hr>
+                                <h4>Lacking Points:</h4>
+                                ${lackingPointsHtml}
+                            `;
+                        
+                            // Insert the generated HTML into the modal content
+                            document.getElementById('candidateSummaryContent').innerHTML = summaryContent;
+                        
+                            // Show the modal with the candidate summary
+                            $('#candidateSummaryModal').modal('show');
+                            //alert("Candidate Summary: " + JSON.stringify(data.result));
+                        } else {
+                            alert("No summary available for this candidate.");
+                        }
+                    })
+                    .catch(error => {
+                        // Catch and log any errors
+                        console.error('Error:', error);
+                        alert('An error occurred while fetching the candidate summary.');
+                    });
+                    
+                });
+
+                additionalDetailsDiv.appendChild(candidateLocation);
+        additionalDetailsDiv.appendChild(candidateSkills);
+        additionalDetailsDiv.appendChild(candidateExperience);
+        //additionalDetailsDiv.appendChild(screeningResultLabel);
+        //additionalDetailsDiv.appendChild(screeningResultSelect);
+        //additionalDetailsDiv.appendChild(scoreLabel);
+        //additionalDetailsDiv.appendChild(scoreInput);
+      //  additionalDetailsDiv.appendChild(remarksLabel);
+      //  additionalDetailsDiv.appendChild(remarksInput);
+      //  additionalDetailsDiv.appendChild(interviewStatusLabel);
+     //   additionalDetailsDiv.appendChild(interviewStatusSelect);
+    //    additionalDetailsDiv.appendChild(interviewDateLabel);
+    //    additionalDetailsDiv.appendChild(interviewDateInput);
+        //additionalDetailsDiv.appendChild(interviewTimeLabel);
+        //additionalDetailsDiv.appendChild(interviewTimeInput);
+        additionalDetailsDiv.appendChild(rowContainer);
+
+        showDetailsButton.addEventListener('click', function () {
+            // Toggle visibility of additional details
+            if (additionalDetailsDiv.style.display === 'none') {
+                additionalDetailsDiv.style.display = 'block';
+                showDetailsButton.textContent = "Hide Details"; // Change button text
+            } else {
+                additionalDetailsDiv.style.display = 'none';
+                showDetailsButton.textContent = "Show Details"; // Change button text back
+            }
+        });
+       
+
+        // Add the candidate card to the result container
+  
+        
+
+                candidateCard.appendChild(candidateName);
+                candidateCard.appendChild(candidateEmail);
+                candidateCard.appendChild(candidatePhoneNumber);
+                //candidateCard.appendChild(candidateLocation);
+                //candidateCard.appendChild(candidateSkills);
+                //candidateCard.appendChild(candidateExperience);
+               candidateCard.appendChild(candidateCheckbox);
+              //  candidateCard.appendChild(interviewStatusLabel);
+               // candidateCard.appendChild(interviewStatusSelect);
+              //  candidateCard.appendChild(interviewDateLabel);
+               // candidateCard.appendChild(interviewDateInput);
+                //candidateCard.appendChild(interviewTimeLabel);
+               // candidateCard.appendChild(interviewTimeInput);
+                //candidateCard.appendChild(screeningResultLabel);
+               // candidateCard.appendChild(screeningResultSelect);
+                //candidateCard.appendChild(scoreLabel);
+              //  candidateCard.appendChild(scoreInput);
+               // candidateCard.appendChild(remarksLabel);
+               // candidateCard.appendChild(remarksInput);
+                candidateCard.appendChild(showDetailsButton);
+                
+                candidateCard.appendChild(getSummaryButton);
+                candidateCard.appendChild(additionalDetailsDiv);
+
+                resultContainer.appendChild(candidateCard);
+            });
+        }
+
+        // New button for searching by job description
+        document.getElementById('searchByJobDescButton').addEventListener('click', async function() {
+            const jobDescription = document.getElementById('jobDescription').value;
+
+            if (!jobDescription.trim()) {
+                alert('Please enter a job description to search.');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/storepdf/profiles/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ job_description: jobDescription })
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.result) {
+                    displayCandidates(result.result); // Display results similar to the other API
+                    document.getElementById('generateExcelButton').style.display = 'block'; // Show the generate button
+                } else {
+                    alert('No results found or error occurred.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while fetching the data.');
+            }
+        });
+       
+        // Function to generate Excel from selected candidates
+        document.getElementById('generateExcelButton').addEventListener('click', function() {
+            const selectedCandidates = [];
+            const checkboxes = document.querySelectorAll('.candidate-checkbox:checked');
+            checkboxes.forEach(checkbox => {
+                const candidateCard = checkbox.closest('.candidate-card');
+                const email = candidateCard.querySelector('p').textContent.split(': ')[1];
+                const phoneNumber = candidateCard.querySelector('p').nextElementSibling.textContent.split(': ')[1];
+                const interviewStatus = candidateCard.querySelector('select').value;
+                const interviewDate = candidateCard.querySelector('input[type="date"]').value;
+                const interviewTime = candidateCard.querySelector('input[type="time"]').value;
+
+                const interviewLink = 'www.ai-resume-zinnia.vercel.app';
+                
+                selectedCandidates.push({
+                    full_name: candidateCard.querySelector('h3').textContent,
+                    email: email,
+                    phone_number: phoneNumber, 
+                    interview_status: interviewStatus,
+                    interview_date: interviewDate,
+                    interview_time: interviewTime,
+                    interview_link: interviewLink
+                    
+                });
+            });
+
+            if (selectedCandidates.length > 0) {
+                // Send selected candidates data to server to generate Excel
+                generateExcel(selectedCandidates);
+            } else {
+                alert('Please select candidates for the Excel export.');
+            }
+        });
+        // Function to toggle visibility of the div
+document.getElementById('shortlist-button').addEventListener('click', function(event) {
+    event.preventDefault();  // Prevent default link behavior (if any)
+
+    // Get both div elements
+    var shortlistDiv = document.getElementById('shortlist-div');
+    var shortlistDivHm = document.getElementById('shortlist-div-hm');
+
+    // Hide both divs first
+    shortlistDiv.style.display = 'none';
+    shortlistDivHm.style.display = 'none';
+
+    // Show the specific div based on the clicked button
+    if (shortlistDiv.style.display === 'none' || shortlistDiv.style.display === '') {
+        shortlistDiv.style.display = 'block';  // Show the div for shortlist-button
+    }
+});
+
+
+{% comment %} 
+document.getElementById('hm-button').addEventListener('click', function(event) {
+    event.preventDefault();  // Prevent default link behavior (if any)
+
+    // Get both div elements
+    var shortlistDiv = document.getElementById('shortlist-div');
+    var shortlistDivHm = document.getElementById('shortlist-div-hm');
+
+    // Hide both divs first
+    shortlistDiv.style.display = 'none';
+    shortlistDivHm.style.display = 'none';
+
+    // Check if any candidate is selected
+    const checkboxes = document.querySelectorAll('.candidate-checkbox:checked');
+    if (checkboxes.length > 0) {
+        // Array to store selected candidates' details
+        const selectedCandidates = [];
+
+        checkboxes.forEach(checkbox => {
+            const candidateCard = checkbox.closest('.candidate-card');
+            const candidateName = candidateCard.querySelector('h3').textContent; // Get candidate name
+            const email = candidateCard.querySelector('p').textContent.split(': ')[1];
+            const phoneNumber = candidateCard.querySelector('p').nextElementSibling.textContent.split(': ')[1];
+            const interviewStatus = candidateCard.querySelector('select').value;
+            const interviewDate = candidateCard.querySelector('input[type="date"]').value;
+            const interviewTime = candidateCard.querySelector('input[type="time"]').value;
+
+            // Push candidate details to the array
+            selectedCandidates.push({
+                name: candidateName,
+                email: email,
+                phone: phoneNumber,
+                interviewStatus: interviewStatus,
+                interviewDate: interviewDate,
+                interviewTime: interviewTime
+            });
+        });
+
+        // Prepare the HTML content to be displayed
+        const copiedContentDiv = document.getElementById('copied-content');
+        copiedContentDiv.innerHTML = ''; // Clear any previous content in shortlist
+
+        // Generate HTML for each candidate in the array and insert it at once
+        selectedCandidates.forEach(candidate => {
+            const candidateHTML = `
+                <div class="candidate-summary">
+                    <h4>${candidate.name}</h4>
+                    <p>Email: ${candidate.email}</p>
+                    <p>Phone: ${candidate.phone}</p>
+                    
+                </div>
+            `;
+            copiedContentDiv.insertAdjacentHTML('beforeend', candidateHTML); // Append the candidate's HTML
+        });
+
+        // Show the shortlist div with the selected candidates
+        shortlistDivHm.style.display = 'block';
+    } else {
+        alert('Please select candidates before proceeding.');
+    }
+}); {% endcomment %}
+
+
+
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const scheduleButtonContainer = document.createElement('div');
+            scheduleButtonContainer.classList.add('text-center');
+            const scheduleInterviewButton = document.createElement('button');
+            scheduleInterviewButton.textContent = 'Schedule Interview';
+            scheduleInterviewButton.id = 'scheduleInterviewButton';
+            scheduleInterviewButton.classList.add('btn', 'btn-primary', 'w-50', 'mt-3');
+            scheduleButtonContainer.appendChild(scheduleInterviewButton);
+            document.getElementById('resul').appendChild(scheduleButtonContainer);
+        
+            // Add the event listener for the "Schedule Interview" button after it is in the DOM
+           document.getElementById('scheduleInterviewButton').addEventListener('click', function () {
+                const selectedCandidates = [];
+                const checkboxes = document.querySelectorAll('.candidate-checkbox:checked');
+                const jobDescription = document.getElementById('jobDescription').value;
+
+                if (!jobDescription) {
+                   alert('Please provide a job description.');
+                   return;
+                }
+        
+                checkboxes.forEach(checkbox => {
+                    
+                    const candidateCard = checkbox.closest('.candidate-card');
+                    const email = candidateCard.querySelector('p').textContent.split(': ')[1];
+                    const candidateName = candidateCard.querySelector('h3').textContent; 
+                    const phoneNumber = candidateCard.querySelector('p').nextElementSibling.textContent.split(': ')[1];
+                    const interviewStatus = candidateCard.querySelector('select').value;
+                    const interviewDate = candidateCard.querySelector('input[type="date"]').value;
+                    const interviewTime = candidateCard.querySelector('input[type="time"]').value;
+
+                    selectedCandidates.push({
+                        email: email,
+                        name : candidateName,
+                        phoneNumber : phoneNumber,
+                        interviewStatus : interviewStatus,
+                        interviewDate : interviewDate,
+                        interviewTime : interviewTime
+
+                    });
+                });
+        
+                // If no candidates are selected, show an alert
+                if (selectedCandidates.length === 0) {
+                   alert('Please select candidates with "Scheduled" status for interview.');
+                    return;
+                } 
+                
+                const requestBody = {
+                    job_description: jobDescription, // Include job description
+                   candidates: selectedCandidates   // Include selected candidates
+                };
+
+        
+                // Send the selected candidates' data via POST request
+               fetch('http://127.0.0.1:8000/storepdf/shortlist/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestBody)
+                   })
+                     .then(response => response.json())
+                     .then(data => {
+                         if (data.message) {
+                            alert('Selected candidates have been scheduled for interview.');
+                        } else {
+                            alert('Error occurred while scheduling interviews.');
+                        }
+                     })
+                     .catch(error => {
+                       console.error('Error:', error);
+                        alert('An error occurred while sending the request.');
+                    });
+            }); 
+        });
+        
+
+                // Function to generate the Excel file
+        function generateExcel(candidates) {
+            const XLSX = window.XLSX;
+
+            const ws = XLSX.utils.json_to_sheet(candidates);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Candidates");
+
+            // Export the file
+            XLSX.writeFile(wb, "candidates.xlsx");
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const selectJD = document.getElementById('select-jd');
+    const textarea = document.getElementById('jobDescription');
+    const clearBtn = document.getElementById('clear-jd');
+
+    // When user selects from dropdown
+    selectJD.addEventListener('change', function () {
+      const selectedValue = this.value;
+      if (selectedValue) {
+        textarea.value = selectedValue;
+      }
+    });
+
+    // When user clicks "clear" button
+    clearBtn.addEventListener('click', function () {
+      selectJD.selectedIndex = 0;
+      textarea.value = '';
+    });
+  });
+</script>
+
+
+</body>
+</html>
